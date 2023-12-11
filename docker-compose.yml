@@ -1,12 +1,14 @@
 version: '2'
 services:
   zookeeper:
+    container_name: zookeeper
     image: quay.io/debezium/zookeeper:${DEBEZIUM_VERSION}
     ports:
       - 2181:2181
       - 2888:2888
       - 3888:3888
   kafka:
+    container_name: kafka
     image: quay.io/debezium/kafka:${DEBEZIUM_VERSION}
     depends_on:
       - zookeeper
@@ -17,6 +19,7 @@ services:
     environment:
       - ZOOKEEPER_CONNECT=zookeeper:2181
   mysql:
+    container_name: mysql
     image: quay.io/debezium/example-mysql:${DEBEZIUM_VERSION}
     ports:
       - 3306:3306
@@ -25,6 +28,7 @@ services:
       - MYSQL_USER=mysqluser
       - MYSQL_PASSWORD=mysqlpw
   connect:
+    container_name: connect
     image: quay.io/debezium/connect:${DEBEZIUM_VERSION}
     depends_on:
       - kafka
@@ -39,3 +43,10 @@ services:
       - CONFIG_STORAGE_TOPIC=my_connect_configs
       - OFFSET_STORAGE_TOPIC=my_connect_offsets
       - STATUS_STORAGE_TOPIC=my_connect_statuses
+  kafka-ui:
+    container_name: kafka-ui
+    image: provectuslabs/kafka-ui
+    ports:
+      - 8895:8080
+    environment:
+      - DYNAMIC_CONFIG_ENABLED=true
