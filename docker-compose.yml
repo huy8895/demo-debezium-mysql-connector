@@ -46,3 +46,12 @@ services:
       - 8895:8080
     environment:
       - DYNAMIC_CONFIG_ENABLED=true
+  postgres:
+    container_name: postgres
+    image: postgres:12.16
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
