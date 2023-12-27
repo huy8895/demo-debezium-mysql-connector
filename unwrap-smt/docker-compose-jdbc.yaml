@@ -23,6 +23,7 @@ services:
       - DYNAMIC_CONFIG_ENABLED=true
 
   mysql:
+    container_name: mysql
     image: quay.io/debezium/example-mysql:${DEBEZIUM_VERSION}
     ports:
       - 3306:3306
@@ -40,7 +41,7 @@ services:
       - POSTGRES_DB=inventory
   connect:
     container_name: connect
-    image: debezium/connect-jdbc-es:${DEBEZIUM_VERSION}
+    image: debezium/connect-jdbc:${DEBEZIUM_VERSION}
     build:
       context: debezium-jdbc-es
       args:
