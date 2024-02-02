@@ -55,3 +55,12 @@ services:
       - CONFIG_STORAGE_TOPIC=my_connect_configs
       - OFFSET_STORAGE_TOPIC=my_connect_offsets
       - STATUS_STORAGE_TOPIC=my_source_connect_statuses
+  debezium-ui:
+    image: quay.io/debezium/debezium-ui:2.5
+    container_name: debezium-ui
+    ports:
+      - 8080:8080
+    environment:
+      - KAFKA_CONNECT_URIS=http://connect:8083
+    depends_on:
+      - connect
