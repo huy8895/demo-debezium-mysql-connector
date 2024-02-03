@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   kafka:
     image: 'bitnami/kafka:3.5.1'
@@ -55,3 +55,10 @@ services:
       - CONFIG_STORAGE_TOPIC=my_connect_configs
       - OFFSET_STORAGE_TOPIC=my_connect_offsets
       - STATUS_STORAGE_TOPIC=my_source_connect_statuses
+  debezium-ui:
+    image: quay.io/debezium/debezium-ui:${DEBEZIUM_VERSION}
+    ports:
+      - "8080:8080"
+    platform: linux/amd64
+    environment:
+      - KAFKA_CONNECT_URIS=http://connect:8083
