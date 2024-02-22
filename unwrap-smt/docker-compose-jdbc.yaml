@@ -31,6 +31,15 @@ services:
       - MYSQL_ROOT_PASSWORD=debezium
       - MYSQL_USER=mysqluser
       - MYSQL_PASSWORD=mysqlpw
+  mysql_sink:
+    container_name: mysql_sink
+    image: quay.io/debezium/example-mysql:${DEBEZIUM_VERSION}
+    ports:
+      - 3307:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=debezium
+      - MYSQL_USER=mysqluser
+      - MYSQL_PASSWORD=mysqlpw
   postgres:
     image: quay.io/debezium/postgres:9.6
     ports:
@@ -55,13 +64,13 @@ services:
       - CONFIG_STORAGE_TOPIC=my_connect_configs
       - OFFSET_STORAGE_TOPIC=my_connect_offsets
       - STATUS_STORAGE_TOPIC=my_source_connect_statuses
-  debezium-ui:
-    image: quay.io/debezium/debezium-ui:${DEBEZIUM_VERSION}
-    container_name: debezium-ui
-    ports:
-      - "8080:8080"
-    platform: linux/amd64
-    environment:
-      - KAFKA_CONNECT_URIS=http://connect:8083
-    depends_on:
-      - connect
+#  debezium-ui:
+#    image: quay.io/debezium/debezium-ui:${DEBEZIUM_VERSION}
+#    container_name: debezium-ui
+#    ports:
+#      - "8080:8080"
+#    platform: linux/amd64
+#    environment:
+#      - KAFKA_CONNECT_URIS=http://connect:8083
+#    depends_on:
+#      - connect
