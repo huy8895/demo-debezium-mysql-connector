@@ -1,0 +1,21 @@
+{
+  "name": "outbox_event_Product",
+  "config": {
+    "connector.class": "io.debezium.connector.jdbc.JdbcSinkConnector",
+    "tasks.max": "1",
+    "topics": "outbox_event_Product",
+    "connection.url": "jdbc:mysql://mysql:3306/db_sink?useSSL=false",
+    "connection.username": "root",
+    "connection.password": "debezium",
+    "schema.evolution": "basic",
+    "insert.mode": "upsert",
+    "primary.key.mode": "record_header",
+    "primary.key.fields": "id",
+    "hibernate.c3p0.idle_test_period": "300",
+    "delete.enabled": "false",
+    "quote.identifiers": "true",
+    "name": "outbox_event_Product"
+  },
+  "tasks": [],
+  "type": "sink"
+}
