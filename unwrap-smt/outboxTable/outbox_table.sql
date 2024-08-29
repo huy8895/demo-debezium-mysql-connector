@@ -18,6 +18,25 @@ INSERT INTO outbox (id, aggregatetype, aggregateid, type, payload) VALUES
                                                                        ('550e8400-e29b-41d4-a716-446655440007', 'Order', '12348', 'OrderCreated', '{"orderId": "12348", "amount": 200.0, "currency": "USD"}'),
                                                                        ('550e8400-e29b-41d4-a716-446655440008', 'Order', '12349', 'OrderCancelled', '{"orderId": "12349", "reason": "Out of stock"}'),
                                                                        ('550e8400-e29b-41d4-a716-446655440009', 'Customer', 'cust125', 'CustomerUpdated', '{"customerId": "cust125", "email": "cust125@example.com"}');
+# outbox with a json list in payload
+CREATE TABLE outbox_list (
+                        id CHAR(36) NOT NULL,
+                        aggregatetype VARCHAR(255) NOT NULL,
+                        aggregateid VARCHAR(255) NOT NULL,
+                        type VARCHAR(255) NOT NULL,
+                        payload JSON NOT NULL,
+                        PRIMARY KEY (id)
+);
+
+INSERT INTO outbox_list (id, aggregatetype, aggregateid, type, payload)
+VALUES
+('550e8400-e29b-41d4-a716-446655440010', 'List', 'List1', 'ListOrderCreated',
+ '[{"orderId": "1", "amount": 100.0, "currency": "USD"},
+{"orderId": "2", "amount": 1020, "currency": "USD"}
+]'),
+('550e8400-e29b-41d4-a716-446655440011', 'List', 'List2', 'ListOrderCreated',
+ '[{"orderId": "3", "amount": 154.0, "currency": "USD"},
+   {"orderId": "4", "amount": 153.0, "currency": "USD"}]');
 
 
 create DATABASE db_sink;

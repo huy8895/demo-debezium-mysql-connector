@@ -31,7 +31,5 @@
     "snapshot.locking.mode": "none",
     "snapshot.mode": "initial",
     "name": "BPM_CDC_SOURCE.inventory.outbox.outbox"
-  },
-  "tasks": [],
-  "type": "source"
+  }
 }
